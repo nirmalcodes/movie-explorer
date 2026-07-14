@@ -30,11 +30,11 @@ export async function generateMetadata({
   const film = await getFilmById(id)
 
   if (!film) {
-    return { title: "Movie not found — Movie Explorer" }
+    return { title: "Movie not found" }
   }
 
   return {
-    title: `${film.title} — Movie Explorer`,
+    title: film.title,
     description: film.description.slice(0, 155),
   }
 }
