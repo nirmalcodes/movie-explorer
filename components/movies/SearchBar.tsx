@@ -6,7 +6,6 @@ import { useEffect, useMemo, useState } from "react"
 import { Input } from "../ui/input"
 
 interface SearchBarProps {
-  /** Called (debounced) whenever the user's search text settles. */
   onSearchChange: (query: string) => void
   placeholder?: string
 }

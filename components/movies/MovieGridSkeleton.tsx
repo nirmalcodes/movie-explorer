@@ -13,7 +13,6 @@ const MovieGridSkeleton = ({ count = 8 }: MovieGridSkeletonProps) => {
         aria-label="Loading movies"
       >
         {Array.from({ length: count }).map((_, i) => (
-          // eslint-disable-next-line react/no-array-index-key -- static placeholder list, order never changes
           <MovieCardSkeleton key={i} />
         ))}
       </div>

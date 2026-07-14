@@ -3,7 +3,7 @@ import MovieMeta from "@/components/movies/details/MovieMeta"
 import MoviePoster from "@/components/movies/details/MoviePoster"
 import { buttonVariants } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { getFilmById, getFilms } from "@/lib/api"
+import { getFilmById } from "@/lib/api"
 import { ArrowLeft } from "lucide-react"
 import { Metadata } from "next"
 import Link from "next/link"
@@ -11,16 +11,6 @@ import { notFound } from "next/navigation"
 
 interface MovieDetailsPageProps {
   params: Promise<{ id: string }>
-}
-
-/**
- * Pre-renders every film at build time (SSG). The catalog is small and
- * effectively static, so there's no reason to fall back to on-demand
- * rendering for these pages.
- */
-export async function generateStaticParams() {
-  const films = await getFilms()
-  return films.map((film) => ({ id: film.id }))
 }
 
 export async function generateMetadata({
@@ -80,11 +70,6 @@ const MovieDetailsPage = async ({ params }: MovieDetailsPageProps) => {
               <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
                 {film.title}
               </h1>
-              {film.originalTitleRomanised && (
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {film.originalTitleRomanised}
-                </p>
-              )}
             </div>
           </div>
 

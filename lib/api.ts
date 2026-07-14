@@ -40,8 +40,6 @@ export function normalizeFilm(film: Film): NormalizedFilm {
     description: film.description,
     director: film.director,
     producer: film.producer,
-    // Guard against any future API weirdness (e.g. an empty string)
-    // producing NaN and silently breaking sort/display downstream.
     releaseYear: Number.isNaN(releaseYear) ? 0 : releaseYear,
     runningTimeMinutes: Number.isNaN(runningTimeMinutes)
       ? 0

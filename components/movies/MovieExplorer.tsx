@@ -30,7 +30,6 @@ const MovieExplorer = ({ films }: MovieExplorerProps) => {
           <SortControl value={sortValue} onValueChange={setSortValue} />
         </div>
 
-        {/* Announces result count changes to screen readers without stealing focus. */}
         <p aria-live="polite" className="sr-only">
           {visibleFilms.length} movie{visibleFilms.length === 1 ? "" : "s"}{" "}
           found
