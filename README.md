@@ -20,17 +20,17 @@ A responsive Movie Explorer built with **Next.js 16** and **TypeScript**, browsi
 
 ## Tech Stack
 
-| Category | Choice |
-|---|---|
-| Framework | [Next.js 16](https://nextjs.org/) (App Router) |
-| Language | TypeScript |
-| Styling | [Tailwind CSS](https://tailwindcss.com/) |
-| Components | [shadcn/ui](https://ui.shadcn.com/) on [Base UI](https://base-ui.com/) primitives |
-| Utilities | [lodash-es](https://lodash.com/) (debounce, orderBy) |
-| Icons | [lucide-react](https://lucide.dev/) |
-| Theme | [next-themes](https://github.com/pacocoursey/next-themes) |
-| Data source | [Studio Ghibli API](https://ghibliapi.vercel.app/) |
-| Deployment | [Vercel](https://vercel.com/) |
+| Category    | Choice                                                                            |
+| ----------- | --------------------------------------------------------------------------------- |
+| Framework   | [Next.js 16](https://nextjs.org/) (App Router)                                    |
+| Language    | TypeScript                                                                        |
+| Styling     | [Tailwind CSS](https://tailwindcss.com/)                                          |
+| Components  | [shadcn/ui](https://ui.shadcn.com/) on [Base UI](https://base-ui.com/) primitives |
+| Utilities   | [lodash-es](https://lodash.com/) (debounce, orderBy)                              |
+| Icons       | [lucide-react](https://lucide.dev/)                                               |
+| Theme       | [next-themes](https://github.com/pacocoursey/next-themes)                         |
+| Data source | [Studio Ghibli API](https://ghibliapi.vercel.app/)                                |
+| Deployment  | [Vercel](https://vercel.com/)                                                     |
 
 ## Getting Started
 
@@ -57,9 +57,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it.
 
 ### Environment Variables
 
-| Variable | Required | Description |
-|---|---|---|
-| `NEXT_PUBLIC_SITE_URL` | No | Base URL used to resolve absolute Open Graph/Twitter image URLs. Falls back to the deployed production URL if unset. Only needed if you deploy to a different domain. |
+| Variable               | Required | Description                                                                                                                                                           |
+| ---------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL` | No       | Base URL used to resolve absolute Open Graph/Twitter image URLs. Falls back to the deployed production URL if unset. Only needed if you deploy to a different domain. |
 
 Create a `.env.local` if you want to override it locally:
 
@@ -110,7 +110,7 @@ movie-explorer/
 
 Data comes from the public [Studio Ghibli API](https://ghibliapi.vercel.app/):
 
-- `GET /films` — full film catalog (used for the grid + `generateStaticParams`)
+- `GET /films` — full film catalog (used for the grid)
 - `GET /films/{id}` — a single film by id (used for the details page)
 
 Numeric fields returned as strings by the API (`release_date`, `running_time`, `rt_score`) are normalized to numbers in `lib/api.ts` before reaching any component.
@@ -126,6 +126,7 @@ Deployed on [Vercel](https://vercel.com/), connected directly to this GitHub rep
 ## Author
 
 **Nirmal Fernando**
+
 - Portfolio: [srnfernando.vercel.app](https://srnfernando.vercel.app)
 - GitHub: [@nirmalcodes](https://github.com/nirmalcodes)
 - LinkedIn: [Nirmal Fernando](https://linkedin.com/in/srnfernando)
