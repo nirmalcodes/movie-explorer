@@ -57,7 +57,7 @@ const MovieDetailsPage = async ({ params }: MovieDetailsPageProps) => {
       <main>
         <MovieBanner src={film.bannerImage} alt={`${film.title} banner`} />
 
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-5xl px-4 pb-16 sm:px-6 lg:px-8">
           <Link
             href="/"
             className={buttonVariants({
