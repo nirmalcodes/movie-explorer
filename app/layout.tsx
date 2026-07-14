@@ -1,3 +1,5 @@
+import { Metadata } from "next"
+import { ReactNode } from "react"
 import { Geist, Geist_Mono } from "next/font/google"
 
 import "./globals.css"
@@ -12,10 +14,26 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 })
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Movie Explorer — Studio Ghibli Films",
+    template: "%s | Movie Explorer",
+  },
+  description:
+    "Browse, search, and sort the complete Studio Ghibli film catalog — ratings, release years, directors, and more.",
+  openGraph: {
+    siteName: "Movie Explorer",
+    type: "website",
+  },
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: ReactNode
 }>) {
   return (
     <html
