@@ -37,18 +37,13 @@ export function filterFilmsByTitle(
   return films.filter((film) => film.title.toLowerCase().includes(trimmed))
 }
 
-const SORT_FIELD_MAP: Record<SortKey, keyof NormalizedFilm> = {
-  releaseYear: "releaseYear",
-  rtScore: "rtScore",
-}
-
 /** Sorts by a single key/direction using lodash's orderBy for a stable sort. */
 export function sortFilms(
   films: NormalizedFilm[],
   key: SortKey,
   direction: SortDirection
 ): NormalizedFilm[] {
-  return orderBy(films, [SORT_FIELD_MAP[key]], [direction])
+  return orderBy(films, [key], [direction])
 }
 
 /**
