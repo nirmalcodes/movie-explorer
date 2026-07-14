@@ -36,6 +36,11 @@ export async function generateMetadata({
   return {
     title: film.title,
     description: film.description.slice(0, 155),
+    openGraph: {
+      title: film.title,
+      description: film.description.slice(0, 155),
+      images: [film.posterImage],
+    },
   }
 }
 
