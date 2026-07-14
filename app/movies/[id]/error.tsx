@@ -15,11 +15,6 @@ const MovieDetailsError = ({ error, reset }: MovieDetailsErrorProps) => {
     console.error("Failed to load movie details:", error)
   }, [error])
 
-  const isKnownApiError = error.name === "FilmsApiError"
-  const message = isKnownApiError
-    ? error.message
-    : "Something went wrong while loading this movie."
-
   return (
     <>
       <main className="mx-auto flex max-w-5xl flex-col items-center justify-center gap-4 px-4 py-24 text-center sm:px-6 lg:px-8">
@@ -28,7 +23,7 @@ const MovieDetailsError = ({ error, reset }: MovieDetailsErrorProps) => {
           aria-hidden="true"
         />
         <h1 className="text-xl font-semibold">Couldn&apos;t load this movie</h1>
-        <p className="max-w-md text-muted-foreground">{message}</p>
+        <p className="max-w-md text-muted-foreground">{error.message}</p>
         <div className="flex gap-3">
           <Button onClick={reset}>Try again</Button>
           <Button variant="outline" render={<Link href="/" />}>

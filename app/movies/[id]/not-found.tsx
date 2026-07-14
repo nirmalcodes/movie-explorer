@@ -15,7 +15,9 @@ const MovieNotFound = () => {
           We couldn&apos;t find a movie with that id. It may have been removed
           or the link is incorrect.
         </p>
-        <Button render={<Link href="/" />}>Back to all movies</Button>
+        <Button nativeButton={false} render={<Link href="/" />}>
+          Back to all movies
+        </Button>
       </main>
     </>
   )
