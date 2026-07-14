@@ -1,4 +1,8 @@
-import { FILMS_ENDPOINT, FILMS_REVALIDATE_SECONDS } from "./constants"
+import {
+  FILMS_ENDPOINT,
+  FILMS_REVALIDATE_SECONDS,
+  filmByIdEndpoint,
+} from "./constants"
 import { Film, NormalizedFilm } from "./types"
 
 /**
@@ -91,15 +95,65 @@ export async function getFilms(): Promise<NormalizedFilm[]> {
 }
 
 /**
- * Fetches a single film by id for the details page.
+ * Fetches a single film by id directly from GET /films/{id}, for the
+ * details page.
  *
- * Reuses getFilms() rather than hitting /films/{id} directly: the
- * dataset is small (~20 films) and getFilms() is cached, so this
- * avoids a second round trip and keeps normalization logic in one
- * place. Swap to a direct `${FILMS_ENDPOINT}/${id}` fetch if the
- * catalog grows large enough that fetching everything becomes wasteful.
+ * Deliberately hits the resource-specific endpoint rather than reusing
+ * getFilms() + find() — even though the latter would technically work
+ * for a dataset this small (see git history for that version). This
+ * mirrors how you'd fetch a single resource against a real production
+ * API: don't pull the whole collection to read one record, and let the
+ * server tell you definitively whether that id exists (404) rather than
+ * inferring it from an in-memory search.
+ *
+ * Returns null on a 404 (film not found) so the page can call
+ * notFound(). Any other failure still throws a FilmsApiError.
  */
 export async function getFilmById(id: string): Promise<NormalizedFilm | null> {
-  const films = await getFilms()
-  return films.find((film) => film.id === id) ?? null
+  let response: Response
+
+  try {
+    response = await fetch(filmByIdEndpoint(id), {
+      next: { revalidate: FILMS_REVALIDATE_SECONDS },
+    })
+  } catch {
+    throw new FilmsApiError(
+      "Could not reach the Studio Ghibli API. Check your connection and try again."
+    )
+  }
+
+  if (response.status === 404) {
+    return null
+  }
+
+  if (!response.ok) {
+    throw new FilmsApiError(
+      `Studio Ghibli API returned an error (${response.status}).`,
+      response.status
+    )
+  }
+
+  let payload: unknown
+  try {
+    payload = await response.json()
+  } catch {
+    throw new FilmsApiError(
+      "Received an unreadable response from the films API."
+    )
+  }
+
+  // Confirmed: an invalid/nonexistent id returns 404 with an empty body,
+  // which is already handled above. This check is a separate, narrower
+  // safety net for the unlikely case of a 200 response whose body isn't
+  // actually a film — cheap to keep, shouldn't ever trigger in practice.
+  if (
+    !payload ||
+    typeof payload !== "object" ||
+    !("id" in payload) ||
+    !("title" in payload)
+  ) {
+    return null
+  }
+
+  return normalizeFilm(payload as Film)
 }
