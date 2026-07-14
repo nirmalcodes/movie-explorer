@@ -9,6 +9,8 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import Header from "@/components/layout/Header"
 import Footer from "@/components/layout/Footer"
 
+import { Analytics } from "@vercel/analytics/next"
+
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" })
 
 const fontMono = Geist_Mono({
@@ -59,6 +61,7 @@ export default function RootLayout({
             </div>
           </TooltipProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
